@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="uz" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAKOVAT GAMES — Aqlingni charxla, imkoniyatingni kashf et!</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- LOADING OVERLAY -->
+    <div id="loader" class="loader-overlay">
+        <div class="loader-box">
+            <div class="brain-pulse">🧠</div>
+            <h2>ZAKOVAT GAMES</h2>
+            <p>Aqlingni charxla, imkoniyatingni kashf et!</p>
+            <div class="loader-bar"><div class="loader-progress"></div></div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATIONS -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- ACHIEVEMENT UNLOCK POPUP -->
+    <div id="achievementPopup" class="achievement-popup hidden">
+        <div class="ach-popup-icon" id="achPopupIcon">🏆</div>
+        <div class="ach-popup-info">
+            <span class="ach-badge">YANGI YUTUQ OCHILDI!</span>
+            <h4 id="achPopupTitle">Birinchi o'yin</h4>
+            <p id="achPopupDesc">Ilk o'yinni muvaffaqiyatli yakunladingiz!</p>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         1. WELCOME & REGISTRATION SCREEN
+    =========================================== -->
+    <section id="welcomeScreen" class="welcome-screen hidden">
+        <div class="welcome-bg-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+
+        <div class="welcome-container glass-card">
+            <!-- Hero Side -->
+            <div class="welcome-hero">
+                <div class="brand-pill">✨ INTELLEKTUAL PLATFORMA</div>
+                <h1 class="welcome-title">ZAKOVAT <span>GAMES</span></h1>
+                <p class="welcome-slogan">"Aqlingni charxla, imkoniyatingni kashf et!"</p>
+                <p class="welcome-desc">
+                    Mantiq, matematika, xotira, diqqat va so'z boyligini rivojlantiruvchi 15 ta maxsus o'yin. 
+                    Yoshingizga moslashtirilgan qiyinlik darajasi va kunlik topshiriqlar sizni kutmoqda.
+                </p>
+                <div class="welcome-features">
+                    <div class="w-feat"><span>🧩</span> 15 ta aqlli o'yin</div>
+                    <div class="w-feat">🎯</span> Yoshga mos murakkablik</div>
+                    <div class="w-feat">🏆</span> Reyting va yutuqlar</div>
+                </div>
+            </div>
+
+            <!-- Registration Form Side -->
+            <div class="welcome-form-box">
+                <h2>Profil yaratish</h2>
+                <p class="form-sub">O'yinlarni boshlash uchun ma'lumotlaringizni kiriting</p>
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="regName">Ismingiz</label>
+                        <input type="text" id="regName" placeholder="Masalan: Jasur" required maxlength="25">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regUsername">Foydalanuvchi nomi (Username)</label>
+                        <input type="text" id="regUsername" placeholder="Masalan: jasur_uz" required maxlength="20">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="regAge">Yosh toifasi</label>
+                            <select id="regAge" required>
+                                <option value="6-9">6–9 yosh (Boshlang'ich)</option>
+                                <option value="10-13" selected>10–13 yosh (O'rta)</option>
+                                <option value="14-17">14–17 yosh (Yuqori)</option>
+                                <option value="18+">18 yosh va katta (Ekspert)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Jins</label>
+                            <div class="gender-selector">
+                                <label class="gender-option">
+                                    <input type="radio" name="regGender" value="O'g'il bola" checked>
+                                    <span>👦 O'g'il bola</span>
+                                </label>
+                                <label class="gender-option">
+                                    <input type="radio" name="regGender" value="Qiz bola">
+                                    <span>👧 Qiz bola</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Avatar tanlang</label>
+                        <div class="avatar-grid" id="regAvatarGrid">
+                            <button type="button" class="avatar-btn selected" data-avatar="🧠">🧠</button>
+                            <button type="button" class="avatar-btn" data-avatar="🦊">🦊</button>
+                            <button type="button" class="avatar-btn" data-avatar="🦉">🦉</button>
+                            <button type="button" class="avatar-btn" data-avatar="🚀">🚀</button>
+                            <button type="button" class="avatar-btn" data-avatar="👩‍🚀">👩‍🚀</button>
+                            <button type="button" class="avatar-btn" data-avatar="🧑‍💻">🧑‍💻</button>
+                            <button type="button" class="avatar-btn" data-avatar="🦁">🦁</button>
+                            <button type="button" class="avatar-btn" data-avatar="🦄">🦄</button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-full">
+                        Platformaga kirish 🚀
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         2. MAIN APPLICATION DASHBOARD
+    =========================================== -->
+    <div id="mainApp" class="app-layout hidden">
+        
+        <!-- Mobile Sidebar Backdrop -->
+        <div id="sidebarBackdrop" class="sidebar-backdrop hidden"></div>
+
+        <!-- LEFT SIDEBAR -->
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-box">
+                    <span class="logo-icon">🧠</span>
+                    <div class="logo-text">
+                        <strong>ZAKOVAT</strong>
+                        <span>GAMES</span>
+                    </div>
+                </div>
+                <button id="closeSidebarBtn" class="icon-btn mobile-only">✕</button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">ASOSIY</div>
+                <button class="nav-item active" data-page="home">
+                    <span class="nav-icon">🏠</span> Bosh sahifa
+                </button>
+                <button class="nav-item" data-page="all-games">
+                    <span class="nav-icon">🎮</span> Barcha o'yinlar
+                </button>
+
+                <div class="nav-section-title">KATEGORIYALAR</div>
+                <button class="nav-item" data-category="logic">
+                    <span class="nav-icon">🧩</span> Mantiqiy o'yinlar
+                </button>
+                <button class="nav-item" data-category="math">
+                    <span class="nav-icon">🔢</span> Matematika
+                </button>
+                <button class="nav-item" data-category="memory">
+                    <span class="nav-icon">🃏</span> Xotira mashqlari
+                </button>
+                <button class="nav-item" data-category="attention">
+                    <span class="nav-icon">👁️</span> Diqqat mashqlari
+                </button>
+                <button class="nav-item" data-category="words">
+                    <span class="nav-icon">🔤</span> So'z o'yinlari
+                </button>
+
+                <div class="nav-section-title">SHAXSIY</div>
+                <button class="nav-item" data-page="leaderboard">
+                    <span class="nav-icon">🏆</span> Reyting
+                </button>
+                <button class="nav-item" data-page="profile">
+                    <span class="nav-icon">👤</span> Mening profilim
+                </button>
+                <button class="nav-item" data-page="settings">
+                    <span class="nav-icon">⚙️</span> Sozlamalar
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="streak-card">
+                    <span class="streak-fire">🔥</span>
+                    <div>
+                        <strong id="sidebarStreak">1 kun</strong>
+                        <small>Ketma-ket faollik</small>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <div class="main-wrapper">
+            
+            <!-- TOP HEADER -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button id="openSidebarBtn" class="icon-btn mobile-only">☰</button>
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="globalSearch" placeholder="O'yinlarni qidirish (masalan: Sudoku, Xotira)...">
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <button id="themeToggleBtn" class="icon-btn" title="Mavzuni almashtirish">🌙</button>
+                    <button id="soundToggleBtn" class="icon-btn" title="Ovoz effektlari">🔊</button>
+                    
+                    <div class="notif-wrapper">
+                        <button id="notifBtn" class="icon-btn" title="Bildirishnomalar">
+                            🔔
+                            <span id="notifBadge" class="badge-dot">2</span>
+                        </button>
+                        <div id="notifDropdown" class="notif-dropdown glass-card hidden">
+                            <h4>Bildirishnomalar</h4>
+                            <div id="notifList" class="notif-list"></div>
+                        </div>
+                    </div>
+
+                    <div class="header-profile" id="headerProfileBtn">
+                        <div class="header-avatar" id="headerAvatar">🧠</div>
+                        <div class="header-user-info">
+                            <strong id="headerName">O'yinchi</strong>
+                            <span id="headerLevel">Daraja 1</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- DYNAMIC PAGES CONTAINER -->
+            <main class="content-area">
+
+                <!-- PAGE 1: HOME DASHBOARD -->
+                <section id="page-home" class="page-section active">
+                    <!-- Welcome Banner -->
+                    <div class="hero-banner glass-card">
+                        <div class="hero-banner-content">
+                            <span class="age-badge" id="homeAgeBadge">Yosh toifasi: 10–13 yosh</span>
+                            <h1 id="homeWelcomeTitle">Xush kelibsiz, O'yinchi! 👋</h1>
+                            <p>Bugun miyangizni charxlash uchun ajoyib kun. Kunlik topshiriqlarni bajaring va XP to'plang!</p>
+                            <div class="hero-actions">
+                                <button class="btn-primary" id="continueLastGameBtn">▶️ O'yinni davom ettirish</button>
+                                <button class="btn-secondary" data-goto="all-games">Barcha 15 ta o'yin</button>
+                            </div>
+                        </div>
+                        <div class="hero-banner-art">
+                            <div class="floating-brain">🧠</div>
+                        </div>
+                    </div>
+
+                    <!-- Stats Grid -->
+                    <div class="stats-grid">
+                        <div class="stat-card glass-card">
+                            <div class="stat-icon purple">⚡</div>
+                            <div class="stat-info">
+                                <span>To'plangan XP</span>
+                                <h3 id="statXP">0 XP</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-card">
+                            <div class="stat-icon blue">🎖️</div>
+                            <div class="stat-info">
+                                <span>Joriy daraja</span>
+                                <h3 id="statLevel">1-daraja</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-card">
+                            <div class="stat-icon orange">🔥</div>
+                            <div class="stat-info">
+                                <span>Ketma-ket kunlar</span>
+                                <h3 id="statStreak">1 kun</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-card">
+                            <div class="stat-icon green">🎯</div>
+                            <div class="stat-info">
+                                <span>Bugungi natija</span>
+                                <h3 id="statDailyScore">0 ball</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Daily Quests & Best Results -->
+                    <div class="dashboard-split">
+                        <!-- Daily Quests -->
+                        <div class="glass-card panel-box">
+                            <div class="panel-header">
+                                <h3>📅 Kunlik topshiriqlar</h3>
+                                <span class="panel-sub" id="dailyQuestProgressText">0/3 bajarildi</span>
+                            </div>
+                            <div id="dailyQuestsList" class="quests-list"></div>
+                        </div>
+
+                        <!-- Best Results -->
+                        <div class="glass-card panel-box">
+                            <div class="panel-header">
+                                <h3>🏅 Eng yaxshi natijalar</h3>
+                                <button class="link-btn" data-goto="profile">Barchasi →</button>
+                            </div>
+                            <div id="homeBestResults" class="best-results-list"></div>
+                        </div>
+                    </div>
+
+                    <!-- Recommended Games -->
+                    <div class="section-block">
+                        <div class="section-header">
+                            <h2>✨ Siz uchun tavsiya etilgan o'yinlar</h2>
+                            <button class="link-btn" data-goto="all-games">Hammasini ko'rish →</button>
+                        </div>
+                        <div id="recommendedGamesGrid" class="games-grid"></div>
+                    </div>
+                </section>
+
+                <!-- PAGE 2: ALL GAMES & CATEGORIES -->
+                <section id="page-all-games" class="page-section hidden">
+                    <div class="section-header">
+                        <div>
+                            <h1 id="gamesPageTitle">Barcha aqlli o'yinlar (15)</h1>
+                            <p class="section-sub">Kategoriyani tanlang yoki sevimli o'yinlaringizni o'ynang</p>
+                        </div>
+                    </div>
+
+                    <!-- Category Filter Pills -->
+                    <div class="filter-bar">
+                        <button class="filter-pill active" data-filter="all">🌟 Barchasi (15)</button>
+                        <button class="filter-pill" data-filter="favorites">❤️ Sevimlilar</button>
+                        <button class="filter-pill" data-filter="logic">🧩 Mantiq</button>
+                        <button class="filter-pill" data-filter="math">🔢 Matematika</button>
+                        <button class="filter-pill" data-filter="memory">🃏 Xotira</button>
+                        <button class="filter-pill" data-filter="attention">👁️ Diqqat</button>
+                        <button class="filter-pill" data-filter="words">🔤 So'z o'yinlari</button>
+                    </div>
+
+                    <div id="allGamesGrid" class="games-grid"></div>
+                </section>
+
+                <!-- PAGE 3: LEADERBOARD -->
+                <section id="page-leaderboard" class="page-section hidden">
+                    <div class="section-header">
+                        <div>
+                            <h1>🏆 O'yinchilar reytingi</h1>
+                            <p class="section-sub">Eng zakovatli ishtirokchilar jadvali (Demo lokal reyting)</p>
+                        </div>
+                        <div class="tab-group">
+                            <button class="tab-btn active" data-lb="daily">Kunlik</button>
+                            <button class="tab-btn" data-lb="weekly">Haftalik</button>
+                            <button class="tab-btn" data-lb="alltime">Umumiy</button>
+                        </div>
+                    </div>
+
+                    <!-- TOP 3 Podium -->
+                    <div id="top3Podium" class="podium-grid"></div>
+
+                    <!-- Leaderboard Table -->
+                    <div class="glass-card table-container">
+                        <table class="lb-table">
+                            <thead>
+                                <tr>
+                                    <th>O'rin</th>
+                                    <th>O'yinchi</th>
+                                    <th>Yosh toifasi</th>
+                                    <th>Daraja</th>
+                                    <th>Umumiy ball</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leaderboardBody"></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- PAGE 4: PROFILE & ACHIEVEMENTS -->
+                <section id="page-profile" class="page-section hidden">
+                    <div class="profile-header-card glass-card">
+                        <div class="profile-main-info">
+                            <div class="profile-big-avatar" id="profAvatar">🧠</div>
+                            <div>
+                                <div class="profile-name-row">
+                                    <h1 id="profName">Ism</h1>
+                                    <span class="username-tag" id="profUsername">@username</span>
+                                </div>
+                                <div class="profile-badges">
+                                    <span class="p-badge" id="profAge">10–13 yosh</span>
+                                    <span class="p-badge" id="profGender">O'g'il bola</span>
+                                    <span class="p-badge highlight" id="profLevel">1-daraja</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn-secondary" id="openEditProfileBtn">✏️ Profilni tahrirlash</button>
+                    </div>
+
+                    <!-- Profile Stats -->
+                    <div class="stats-grid">
+                        <div class="stat-card glass-card">
+                            <div class="stat-icon purple">💎</div>
+                            <div class="stat-info">
+                                <span>Umumiy ball</span>
+                                <h3 id="profTotalScore">0</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-card">
+                            <div class="stat-icon blue">⚡</div>
+                            <div class="stat-info">
+                                <span>Jami XP</span>
+                                <h3 id="profTotalXP">0</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-card">
+                            <div class="stat-icon green">🎮</div>
+                            <div class="stat-info">
+                                <span>O'ynalgan o'yinlar</span>
+                                <h3 id="profGamesPlayed">0</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-card">
+                            <div class="stat-icon orange">🏆</div>
+                            <div class="stat-info">
+                                <span>Ochilgan yutuqlar</span>
+                                <h3 id="profAchCount">0 / 8</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Achievements Section -->
+                    <div class="section-block">
+                        <h2>🏅 Yutuqlar (8 ta)</h2>
+                        <div id="achievementsGrid" class="achievements-grid"></div>
+                    </div>
+
+                    <!-- Game History -->
+                    <div class="section-block">
+                        <h2>📜 O'yinlar natijalari tarixi</h2>
+                        <div class="glass-card table-container">
+                            <table class="lb-table">
+                                <thead>
+                                    <tr>
+                                        <th>O'yin nomi</th>
+                                        <th>Ball</th>
+                                        <th>To'g'ri / Xato</th>
+                                        <th>Sana</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="historyTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PAGE 5: SETTINGS -->
+                <section id="page-settings" class="page-section hidden">
+                    <h1>⚙️ Platforma sozlamalari</h1>
+                    <div class="settings-grid">
+                        <div class="glass-card setting-item">
+                            <div>
+                                <h3>🌓 Rang mavzusi (Qorong'i / Yorug')</h3>
+                                <p>Ko'zga qulay qorong'i yoki yorug' interfeysni tanlang</p>
+                            </div>
+                            <button class="btn-primary" id="settingsThemeBtn">Rejimni almashtirish</button>
+                        </div>
+
+                        <div class="glass-card setting-item">
+                            <div>
+                                <h3>🔊 Ovoz effektlari</h3>
+                                <p>O'yin davomidagi to'g'ri va noto'g'ri javob tovushlari</p>
+                            </div>
+                            <button class="btn-secondary" id="settingsSoundBtn">Yoqilgan</button>
+                        </div>
+
+                        <div class="glass-card setting-item">
+                            <div>
+                                <h3>🔄 Ma'lumotlarni tozalash</h3>
+                                <p>Barcha natijalar va profilni o'chirib, boshidan boshlash</p>
+                            </div>
+                            <button class="btn-danger" id="resetDataBtn">Hisobni o'chirish</button>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         3. GAME ARENA MODAL (ALL 15 GAMES RUN HERE)
+    =========================================== -->
+    <div id="gameModal" class="game-modal hidden">
+        <div class="game-window glass-card">
+            <!-- Top Game Bar -->
+            <div class="game-top-bar">
+                <div class="game-title-area">
+                    <span id="gmIcon" class="gm-icon">🧩</span>
+                    <div>
+                        <h3 id="gmTitle">O'yin nomi</h3>
+                        <span id="gmDifficulty" class="gm-diff-badge">O'rta daraja</span>
+                    </div>
+                </div>
+
+                <div class="game-hud">
+                    <div class="hud-box">
+                        <small>VAQT</small>
+                        <strong id="gmTimer">01:00</strong>
+                    </div>
+                    <div class="hud-box">
+                        <small>BALL</small>
+                        <strong id="gmScore">0</strong>
+                    </div>
+                    <div class="hud-box">
+                        <small>TO'G'RI / XATO</small>
+                        <strong><span id="gmCorrect" class="txt-green">0</span> / <span id="gmWrong" class="txt-red">0</span></strong>
+                    </div>
+                </div>
+
+                <div class="game-controls-top">
+                    <button id="gmRulesBtn" class="icon-btn" title="O'yin qoidalari">❓</button>
+                    <button id="gmRestartBtn" class="icon-btn" title="Qayta boshlash">🔄</button>
+                    <button id="gmCloseBtn" class="icon-btn close-btn" title="Chiqish">✕</button>
+                </div>
+            </div>
+
+            <!-- Rules Banner (Collapsible) -->
+            <div id="gmRulesBox" class="gm-rules-box hidden">
+                <strong>📖 O'yin qoidalari:</strong>
+                <p id="gmRulesText">Qoidalar matni...</p>
+            </div>
+
+            <!-- Start Screen Inside Game -->
+            <div id="gmStartScreen" class="gm-overlay-screen">
+                <div class="gm-start-icon" id="gmStartIcon">🧠</div>
+                <h2 id="gmStartTitle">O'yin nomi</h2>
+                <p id="gmStartDesc">O'yin tavsifi va qoidalari.</p>
+                <div class="gm-meta-info">
+                    <span>⏱️ Vaqt: <strong id="gmStartTime">60 soniya</strong></span>
+                    <span>🎯 Daraja: <strong id="gmStartDiff">10–13 yosh</strong></span>
+                </div>
+                <button id="gmStartBtn" class="btn-primary btn-lg">▶️ O'yinni boshlash</button>
+            </div>
+
+            <!-- Active Game Canvas / Board -->
+            <div id="gmBoard" class="gm-board hidden"></div>
+
+            <!-- Game Over / Results Screen -->
+            <div id="gmResultScreen" class="gm-overlay-screen hidden">
+                <div class="result-trophy">🏆</div>
+                <h2>O'yin yakunlandi!</h2>
+                <p id="gmResultSubtitle">Ajoyib natija! Miyangiz yanada charxlandi.</p>
+                
+                <div class="result-stats-box">
+                    <div class="r-stat">
+                        <span>To'plangan ball</span>
+                        <strong id="resFinalScore">0</strong>
+                    </div>
+                    <div class="r-stat">
+                        <span>Olingan XP</span>
+                        <strong id="resFinalXP">+0 XP</strong>
+                    </div>
+                    <div class="r-stat">
+                        <span>To'g'ri javoblar</span>
+                        <strong id="resFinalCorrect" class="txt-green">0</strong>
+                    </div>
+                    <div class="r-stat">
+                        <span>Noto'g'ri javoblar</span>
+                        <strong id="resFinalWrong" class="txt-red">0</strong>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button id="resPlayAgainBtn" class="btn-primary">🔄 Qayta o'ynash</button>
+                    <button id="resBackBtn" class="btn-secondary">🏠 Platformaga qaytish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         4. EDIT PROFILE MODAL
+    =========================================== -->
+    <div id="editProfileModal" class="game-modal hidden">
+        <div class="edit-modal-box glass-card">
+            <div class="modal-header">
+                <h3>✏️ Profilni tahrirlash</h3>
+                <button id="closeEditModalBtn" class="icon-btn">✕</button>
+            </div>
+            <form id="editProfileForm">
+                <div class="form-group">
+                    <label>Ismingiz</label>
+                    <input type="text" id="editName" required maxlength="25">
+                </div>
+                <div class="form-group">
+                    <label>Foydalanuvchi nomi</label>
+                    <input type="text" id="editUsername" required maxlength="20">
+                </div>
+                <div class="form-group">
+                    <label>Yosh toifasi</label>
+                    <select id="editAge">
+                        <option value="6-9">6–9 yosh (Boshlang'ich)</option>
+                        <option value="10-13">10–13 yosh (O'rta)</option>
+                        <option value="14-17">14–17 yosh (Yuqori)</option>
+                        <option value="18+">18 yosh va katta (Ekspert)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Avatar</label>
+                    <div class="avatar-grid" id="editAvatarGrid">
+                        <button type="button" class="avatar-btn" data-avatar="🧠">🧠</button>
+                        <button type="button" class="avatar-btn" data-avatar="🦊">🦊</button>
+                        <button type="button" class="avatar-btn" data-avatar="🦉">🦉</button>
+                        <button type="button" class="avatar-btn" data-avatar="🚀">🚀</button>
+                        <button type="button" class="avatar-btn" data-avatar="👩‍🚀">👩‍🚀</button>
+                        <button type="button" class="avatar-btn" data-avatar="🧑‍💻">🧑‍💻</button>
+                        <button type="button" class="avatar-btn" data-avatar="🦁">🦁</button>
+                        <button type="button" class="avatar-btn" data-avatar="🦄">🦄</button>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary btn-full">💾 Saqlash</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
